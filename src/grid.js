@@ -19,13 +19,6 @@ class Grid {
     }
 
     /**
-     * @returns {number[]} A 81 long array of numbers representing the entire Sudoku grid.
-     */
-    get grid() {
-        return this.grid
-    }
-
-    /**
      * @param {number} row A number between 0 and 8 included.
      * @param {number} column A number between 0 and 8 included.
      * @returns {number} A number representing the start index for a 3x3 sub-grid grid.

@@ -33,7 +33,28 @@ class Solver {
      * @returns {number[]} The solved grid.
      */
     solve() {
+        let sudoku = this.grid.grid
+        let solved = false
+        let iteration = 0
 
+        while (!solved) {
+            solved = true
+            iteration++
+
+            for (let index = 0; index < 81; index++) {
+                if (sudoku[index] !== 0) { continue }
+
+                let possible_values = this.grid.getPossibleValues(index)
+
+                if (possible_values.length === 1) {
+                    sudoku[index] = possible_values[0]
+                } else if (possible_values.length > 1) {
+                    solved = false
+                }
+            }
+        }
+
+        return sudoku
     }
 
 }
