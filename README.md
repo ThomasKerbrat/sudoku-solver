@@ -17,6 +17,12 @@ This is a small NodeJS library for solving Sudoku grids.
 
 - Print the result in the console.
 
+## To do
+
+1. If a possible number is present in only one cell of a sub-grid, set that number in the cell.
+2. If two or three possible identical possible values in the same sub-grid are aligned, they remove possible values of the same number in the row or column they are aligned.
+3. Among the possible remaining values in a sub-grid, if they are aligned, do TODO #2 (above).
+
 # Vocabulary
 
 Ranges are inclusive.
