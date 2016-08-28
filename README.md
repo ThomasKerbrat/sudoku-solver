@@ -4,10 +4,17 @@ This is a small NodeJS library for solving Sudoku grids.
 
 ## Run the sample
 
+Run the following commands.
+
 ``` bash
-you@home:~$ git clone https://github.com/ThomasKerbrat/sudoku-solver
-you@home:~$ cd sudoku-solver
-you@home:~$ node showcase.js
+git clone https://github.com/ThomasKerbrat/sudoku-solver
+cd sudoku-solver
+node showcase.js
+```
+
+Outputs:
+
+```
 Unsolved :
 . . 2  9 . 8  . 1 .
 7 . .  . 6 .  5 . .
