@@ -2,12 +2,45 @@
 
 This is a small NodeJS library for solving Sudoku grids.
 
+## Run the sample
+
+``` bash
+you@home:~$ git clone https://github.com/ThomasKerbrat/sudoku-solver
+you@home:~$ cd sudoku-solver
+you@home:~$ node showcase.js
+Unsolved :
+. . 2  9 . 8  . 1 .
+7 . .  . 6 .  5 . .
+. . 9  5 . .  . . 7
+
+. 4 1  . 2 6  . 5 .
+. 8 7  . . .  3 4 .
+. 6 .  4 8 .  1 9 .
+
+1 . .  . . 5  2 . .
+. . 8  . 4 .  . . 5
+. 7 .  6 . 2  8 . .
+
+Solved :
+6 5 2  9 7 8  4 1 3
+7 1 4  2 6 3  5 8 9
+8 3 9  5 1 4  6 2 7
+
+9 4 1  3 2 6  7 5 8
+2 8 7  1 5 9  3 4 6
+5 6 3  4 8 7  1 9 2
+
+1 9 6  8 3 5  2 7 4
+3 2 8  7 4 1  9 6 5
+4 7 5  6 9 2  8 3 1
+```
+
 # Algorithm
 
 - For each cell:
     - Initialize possible value to the 1..9 range
 
-- While the gris is not solved:
+- While the grid is not solved:
     - Set the flag to re-run to false.
     - For each cell:
         - Eliminate the possibles values by looking for them in the 3x3 grid, row and column.
@@ -20,7 +53,7 @@ This is a small NodeJS library for solving Sudoku grids.
 ## To do
 
 1. If a possible number is present in only one cell of a sub-grid, set that number in the cell.
-2. If two or three possible identical possible values in the same sub-grid are aligned, they remove possible values of the same number in the row or column they are aligned.
+2. If two or three identical possible values in the same sub-grid are aligned, remove possible values of the same number in the row or column they are aligned.
 3. Among the possible remaining values in a sub-grid, if they are aligned, do TODO #2 (above).
 
 # Vocabulary
