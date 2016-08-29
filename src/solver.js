@@ -18,16 +18,16 @@ class Solver {
     }
 
     /**
-     * @returns {number[]} The solved grid.
+     * @returns {{ solved: boolean; iterations: number; sudoku: number[];}} The solved grid.
      */
     solve() {
         let sudoku = this.grid.grid
         let solved = false
-        let iteration = 0
+        let iterations = 0
 
-        while (!solved) {
+        while (!solved && iterations < 10) {
             solved = true
-            iteration++
+            iterations++
 
             for (let index = 0; index < 81; index++) {
                 if (sudoku[index] !== 0) { continue }
@@ -42,7 +42,7 @@ class Solver {
             }
         }
 
-        return sudoku
+        return { solved, iterations, sudoku }
     }
 
 }

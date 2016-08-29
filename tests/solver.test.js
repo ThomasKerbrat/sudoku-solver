@@ -9,5 +9,10 @@ const sample_grid = require('./data/grid-2.js')
     let grid = new Grid(sample_grid.unresolved)
     let solver = new Solver(grid)
 
-    assert.deepStrictEqual(solver.solve(), Grid.build_array_from_string(sample_grid.resolved))
+    let result = solver.solve()
+
+    assert.deepStrictEqual(
+        result.sudoku,
+        Grid.build_array_from_string(sample_grid.resolved)
+    )
 }
