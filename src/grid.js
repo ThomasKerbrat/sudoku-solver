@@ -4,10 +4,19 @@
 class Grid {
 
     /**
-     * @param {number[]} grid An array of 81 numbers representing the Sudoku grid.
+     * @param {number[]|string} grid An array or a string of 81 numbers representing the Sudoku grid.
      */
     constructor(grid) {
-        if (!(grid instanceof Array)) {
+        let _grid = grid
+
+        if (typeof grid === 'string') {
+
+            if (grid.length !== 81) {
+                throw new RangeError('grid must be 81 numbers long')
+            }
+
+            _grid = Grid.build_array_from_string(grid)
+        } else if (!(grid instanceof Array)) {
             throw new TypeError('grid must be an array')
         }
 
@@ -15,7 +24,18 @@ class Grid {
             throw new RangeError('grid must be 81 numbers long')
         }
 
-        this.grid = grid
+        this.grid = _grid
+    }
+
+    /**
+     * @param {string} grid_as_a_string All the numbers of the grid represented as a string of 81 characters.
+     * @returns {number[]} An array of 81 numbers representing the Sudoku grid.
+     */
+    static build_array_from_string(grid_as_a_string) {
+        return (grid_as_a_string.split('')).map(function (number) {
+            let value = Number(number)
+            return Number.isNaN(value) ? 0 : value
+        })
     }
 
     /**

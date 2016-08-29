@@ -10,7 +10,7 @@ let solver = new Solver(grid)
 
 console.log('Unsolved :')
 console.log(render(
-    sample_grid.unresolved.map(function (value) {
+    Grid.build_array_from_string(sample_grid.unresolved).map(function (value) {
         if (value === 0) { return '.' } else { return value }
     })
 ), os.EOL)
