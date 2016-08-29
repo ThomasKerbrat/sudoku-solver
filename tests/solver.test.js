@@ -9,7 +9,5 @@ const sample_grid = require('./data/grid-1.js')
     let grid = new Grid(sample_grid.unresolved)
     let solver = new Solver(grid)
 
-    assert.strictEqual(solver.possible_values.length, 81)
-
     assert.deepStrictEqual(solver.solve(), sample_grid.resolved)
 }

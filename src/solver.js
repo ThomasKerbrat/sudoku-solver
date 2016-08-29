@@ -14,19 +14,7 @@ class Solver {
         }
 
         this.grid = grid
-        this.possible_values = this.initializePossibleValues()
-    }
-
-    initializePossibleValues() {
-        let possible_values = []
-
-        for (let row = 0; row < 9; row++) {
-            for (let column = 0; column < 9; column++) {
-                possible_values[(row * 9) + column] = this.grid.getPossibleValues((row * 9) + column)
-            }
-        }
-
-        return possible_values
+        this.possible_values
     }
 
     /**
@@ -44,11 +32,11 @@ class Solver {
             for (let index = 0; index < 81; index++) {
                 if (sudoku[index] !== 0) { continue }
 
-                let possible_values = this.grid.getPossibleValues(index)
+                this.possible_values = this.grid.getPossibleValues(index)
 
-                if (possible_values.length === 1) {
-                    sudoku[index] = possible_values[0]
-                } else if (possible_values.length > 1) {
+                if (this.possible_values.length === 1) {
+                    sudoku[index] = this.possible_values[0]
+                } else if (this.possible_values.length > 1) {
                     solved = false
                 }
             }
