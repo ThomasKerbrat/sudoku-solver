@@ -59,9 +59,9 @@ Solved :
 
 ## To do
 
-1. If a possible number is present in only one cell of a sub-grid, set that number in the cell.
-2. If two or three identical possible values in the same sub-grid are aligned, remove possible values of the same number in the row or column they are aligned.
-3. Among the possible remaining values in a sub-grid, if they are aligned, do TODO #2 (above).
+1. If a possible number is present in only one cell of a square, set that number in the cell.
+2. If two or three identical possible values in the same square are aligned, remove possible values of the same number in the row or column they are aligned.
+3. Among the possible remaining values in a square, if they are aligned, do TODO #2 (above).
 
 # Vocabulary
 
@@ -83,8 +83,8 @@ The index of the Row of a Cell in the Grid, range 0 to 8.
 ## CellColumnIndex: number
 The index of the Column of a Cell in the Grid, range 0 to 8.
 
-## CellSubGridIndex: number
-The index of a Cell in the SubGrid, range 0 to 8.
+## CellSquareIndex: number
+The index of a Cell in the Square, range 0 to 8.
 
 
 ## Row: number[]
@@ -101,8 +101,8 @@ An array of Cell representing all the cells in a column in the Grid, length 9.
 The index of the Column in the Grid, range 0 to 8.
 
 
-## SubGrid: number[]
-A 3x3 Cell grid representing one of the nine sub-grids in a Sudoku grid.
+## Square: number[]
+A 3x3 Cell grid representing one of the nine squares in a Sudoku grid.
 
-## SubGridIndex: number
-The index of the SubGrid in the Grid, range 0 to 8.
+## SquareIndex: number
+The index of the Square in the Grid, range 0 to 8.

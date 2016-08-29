@@ -43,7 +43,7 @@ class Grid {
     /**
      * @param {number} row A number between 0 and 8 included.
      * @param {number} column A number between 0 and 8 included.
-     * @returns {number} A number representing the start index for a 3x3 sub-grid grid.
+     * @returns {number} A number representing the start index for a 3x3 square grid.
      */
     static getStartIndex(row, column) {
         return (row * 27) + (column * 3)
@@ -51,9 +51,9 @@ class Grid {
 
     /**
      * @param {number} grid_index The index of a cell in the grid, from 0 up to 80 included.
-     * @returns {number} The sub-grid index for the given grid index.
+     * @returns {number} The square index for the given grid index.
      */
-    static getSubGridIndexForGridIndex(grid_index) {
+    static getSquareIndexForGridIndex(grid_index) {
         return Math.floor(Grid.getRowIndexForGridIndex(grid_index) / 3) * 3 +
             Math.floor(Grid.getColumnIndexForGridIndex(grid_index) / 3)
     }
@@ -76,9 +76,9 @@ class Grid {
 
     /**
      * @param {number} index A number between 0 and 8 included.
-     * @returns {number[]} The sub-grid at index.
+     * @returns {number[]} The square at index.
      */
-    getSubGrid(index) {
+    getSquare(index) {
         if (typeof index !== 'number') {
             throw new TypeError('index must be a number')
         }
@@ -150,7 +150,7 @@ class Grid {
     }
 
     /**
-     * @description Reads all numbers in the sub-grid, row and column to compute the possible values of a cell.
+     * @description Reads all numbers in the square, row and column to compute the possible values of a cell.
      * @param {number} index The index of a cell in the grid, from 0 up to 80 included.
      * @returns {number[]} An array of all possible value for the requested cell.
      */
@@ -172,7 +172,7 @@ class Grid {
 
         removeValues({
             from: values,
-            present_in: this.getSubGrid(Grid.getSubGridIndexForGridIndex(index))
+            present_in: this.getSquare(Grid.getSquareIndexForGridIndex(index))
         })
 
         if (values.length === 1) { return values }

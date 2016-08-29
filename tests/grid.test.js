@@ -17,18 +17,18 @@ const sample_grid = require('./data/grid-1.js').unresolved
     assert.strictEqual(Grid.getStartIndex(2, 2), 60);
 }
 
-{ // Grid.getSubGridIndexForGridIndex
-    assert.strictEqual(Grid.getSubGridIndexForGridIndex(10), 0)
-    assert.strictEqual(Grid.getSubGridIndexForGridIndex(13), 1)
-    assert.strictEqual(Grid.getSubGridIndexForGridIndex(16), 2)
+{ // Grid.getSquareIndexForGridIndex
+    assert.strictEqual(Grid.getSquareIndexForGridIndex(10), 0)
+    assert.strictEqual(Grid.getSquareIndexForGridIndex(13), 1)
+    assert.strictEqual(Grid.getSquareIndexForGridIndex(16), 2)
 
-    assert.strictEqual(Grid.getSubGridIndexForGridIndex(37), 3)
-    assert.strictEqual(Grid.getSubGridIndexForGridIndex(40), 4)
-    assert.strictEqual(Grid.getSubGridIndexForGridIndex(43), 5)
+    assert.strictEqual(Grid.getSquareIndexForGridIndex(37), 3)
+    assert.strictEqual(Grid.getSquareIndexForGridIndex(40), 4)
+    assert.strictEqual(Grid.getSquareIndexForGridIndex(43), 5)
 
-    assert.strictEqual(Grid.getSubGridIndexForGridIndex(64), 6)
-    assert.strictEqual(Grid.getSubGridIndexForGridIndex(67), 7)
-    assert.strictEqual(Grid.getSubGridIndexForGridIndex(70), 8)
+    assert.strictEqual(Grid.getSquareIndexForGridIndex(64), 6)
+    assert.strictEqual(Grid.getSquareIndexForGridIndex(67), 7)
+    assert.strictEqual(Grid.getSquareIndexForGridIndex(70), 8)
 }
 
 { // Grid.getRowIndexForGridIndex
@@ -59,22 +59,22 @@ const sample_grid = require('./data/grid-1.js').unresolved
     assert.strictEqual(Grid.getColumnIndexForGridIndex(80), 8)
 }
 
-{ // Grid.getSubGrid
+{ // Grid.getSquare
     let grid = new Grid(sample_grid)
 
-    assert.deepStrictEqual(grid.getSubGrid(0), [
+    assert.deepStrictEqual(grid.getSquare(0), [
         0, 0, 0,
         0, 5, 0,
         0, 0, 0
     ])
 
-    assert.deepStrictEqual(grid.getSubGrid(4), [
+    assert.deepStrictEqual(grid.getSquare(4), [
         0, 0, 2,
         9, 0, 4,
         6, 0, 0
     ])
 
-    assert.deepStrictEqual(grid.getSubGrid(8), [
+    assert.deepStrictEqual(grid.getSquare(8), [
         0, 0, 0,
         0, 6, 0,
         0, 0, 0
