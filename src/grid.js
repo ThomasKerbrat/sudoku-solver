@@ -1,3 +1,5 @@
+const assert = require('assert')
+
 /**
  * A 9x9 Sudoku grid.
  */
@@ -168,23 +170,26 @@ class Grid {
             }
         }
 
-        let sub_grid = this.getSubGrid(Grid.getSubGridIndexForGridIndex(index))
-        removeValues({ from: values, present_in: sub_grid })
+        removeValues({
+            from: values,
+            present_in: this.getSubGrid(Grid.getSubGridIndexForGridIndex(index))
+        })
 
-        if (values.length === 0) {
-            return values
-        }
+        if (values.length === 1) { return values }
 
-        let grid_row = this.getRow(Grid.getRowIndexForGridIndex(index))
-        removeValues({ from: values, present_in: grid_row })
+        removeValues({
+            from: values,
+            present_in: this.getRow(Grid.getRowIndexForGridIndex(index))
+        })
 
-        if (values.length === 0) {
-            return values
-        }
+        if (values.length === 1) { return values }
 
-        let grid_column = this.getColumn(Grid.getColumnIndexForGridIndex(index))
-        removeValues({ from: values, present_in: grid_column })
+        removeValues({
+            from: values,
+            present_in: this.getColumn(Grid.getColumnIndexForGridIndex(index))
+        })
 
+        assert.notStrictEqual(values.length, 0, '0 possible values')
         return values
     }
 
