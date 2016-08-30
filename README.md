@@ -91,7 +91,7 @@ class Cell {
 }
 
 class Region {
-    constructor: (strategy: RegionStrategy) => void;
+    constructor: (grid: Grid, strategy: RegionStrategy) => void;
     cells: Cell[];
 }
 

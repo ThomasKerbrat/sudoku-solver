@@ -2,8 +2,13 @@ const assert = require('chai').assert
 
 const Cell = require('../src/cell.js')
 const Region = require('../src/region.js')
+const Grid = require('../src/grid.js')
 
-const _region = new Region()
+const sample_grid = require('./data/grid-2.js')
+let grid = new Grid(sample_grid.unresolved)
+let strategy = function strategy(a, b) { }
+
+const _region = new Region(grid, strategy)
 
 describe('Cell', function () {
 
