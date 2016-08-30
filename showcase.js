@@ -19,9 +19,9 @@ unsolved_grid = unsolved_grid.map(function (value) {
 console.log('Unsolved :')
 console.log(render(unsolved_grid, os.EOL), os.EOL)
 
-let solved_grid = solver.solve()
+let result = solver.solve()
 console.log('Solved :')
-console.log(render(solved_grid, os.EOL))
+console.log(render(result.sudoku, os.EOL))
 
 function render(grid, end_of_line) {
     let output = []
