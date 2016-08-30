@@ -69,7 +69,7 @@ Solved :
 
 # The object model
 
-Here is are TypeScript class definitions to show the object model underlying this solver.
+Here are TypeScript class definitions to show the object model underlying this solver.
 It is actually implemented as plain ES6 classes.
 
 ``` typescript
@@ -82,6 +82,7 @@ class Grid {
 
 class Cell {
     value: number;
+    has_value: boolean;
     // Possible values for this cell.
     candidates: number[];
     row: Region;
