@@ -1,0 +1,32 @@
+{
+  "name": "sudoku-solver",
+  "version": "0.0.0",
+  "description": "An over engineered Sudoku solver written in ES6.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": ".\\node_modules\\.bin\\mocha .\\test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThomasKerbrat/sudoku-solver.git"
+  },
+  "keywords": [
+    "sudoku",
+    "solver",
+    "es6",
+    "complex"
+  ],
+  "author": "Thomas Kerbrat <kerbrat@outlook.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2"
+  },
+  "bugs": {
+    "url": "https://github.com/ThomasKerbrat/sudoku-solver/issues"
+  },
+  "homepage": "https://github.com/ThomasKerbrat/sudoku-solver#readme"
+}

@@ -3,7 +3,7 @@ const os = require('os')
 const Grid = require('./src/grid.js')
 const Solver = require('./src/solver.js')
 
-const sample_grid = require('./tests/data/grid-2.js')
+const sample_grid = require('./test/data/grid-2.js')
 
 let grid = new Grid(sample_grid.unresolved)
 let solver = new Solver(grid)
