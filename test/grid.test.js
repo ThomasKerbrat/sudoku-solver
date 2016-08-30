@@ -3,128 +3,147 @@ const Grid = require('../src/grid.js')
 
 const sample_grid = require('./data/grid-1.js').unresolved
 
-{ // Grid.getStartIndex
-    assert.strictEqual(Grid.getStartIndex(0, 0), 0);
-    assert.strictEqual(Grid.getStartIndex(0, 1), 3);
-    assert.strictEqual(Grid.getStartIndex(0, 2), 6);
+describe('Grid', function () {
+    describe('#getStartIndex()', function () {
+        it('should get the start index for every possible values', function () {
+            assert.strictEqual(Grid.getStartIndex(0, 0), 0);
+            assert.strictEqual(Grid.getStartIndex(0, 1), 3);
+            assert.strictEqual(Grid.getStartIndex(0, 2), 6);
 
-    assert.strictEqual(Grid.getStartIndex(1, 0), 27);
-    assert.strictEqual(Grid.getStartIndex(1, 1), 30);
-    assert.strictEqual(Grid.getStartIndex(1, 2), 33);
+            assert.strictEqual(Grid.getStartIndex(1, 0), 27);
+            assert.strictEqual(Grid.getStartIndex(1, 1), 30);
+            assert.strictEqual(Grid.getStartIndex(1, 2), 33);
 
-    assert.strictEqual(Grid.getStartIndex(2, 0), 54);
-    assert.strictEqual(Grid.getStartIndex(2, 1), 57);
-    assert.strictEqual(Grid.getStartIndex(2, 2), 60);
-}
+            assert.strictEqual(Grid.getStartIndex(2, 0), 54);
+            assert.strictEqual(Grid.getStartIndex(2, 1), 57);
+            assert.strictEqual(Grid.getStartIndex(2, 2), 60);
+        })
+    })
 
-{ // Grid.getSquareIndexForGridIndex
-    assert.strictEqual(Grid.getSquareIndexForGridIndex(10), 0)
-    assert.strictEqual(Grid.getSquareIndexForGridIndex(13), 1)
-    assert.strictEqual(Grid.getSquareIndexForGridIndex(16), 2)
+    describe('#getSquareIndexForGridIndex()', function () {
+        it('should get the square index for the given grid index', function () {
+            assert.strictEqual(Grid.getSquareIndexForGridIndex(10), 0)
+            assert.strictEqual(Grid.getSquareIndexForGridIndex(13), 1)
+            assert.strictEqual(Grid.getSquareIndexForGridIndex(16), 2)
 
-    assert.strictEqual(Grid.getSquareIndexForGridIndex(37), 3)
-    assert.strictEqual(Grid.getSquareIndexForGridIndex(40), 4)
-    assert.strictEqual(Grid.getSquareIndexForGridIndex(43), 5)
+            assert.strictEqual(Grid.getSquareIndexForGridIndex(37), 3)
+            assert.strictEqual(Grid.getSquareIndexForGridIndex(40), 4)
+            assert.strictEqual(Grid.getSquareIndexForGridIndex(43), 5)
 
-    assert.strictEqual(Grid.getSquareIndexForGridIndex(64), 6)
-    assert.strictEqual(Grid.getSquareIndexForGridIndex(67), 7)
-    assert.strictEqual(Grid.getSquareIndexForGridIndex(70), 8)
-}
+            assert.strictEqual(Grid.getSquareIndexForGridIndex(64), 6)
+            assert.strictEqual(Grid.getSquareIndexForGridIndex(67), 7)
+            assert.strictEqual(Grid.getSquareIndexForGridIndex(70), 8)
+        })
+    })
 
-{ // Grid.getRowIndexForGridIndex
-    assert.strictEqual(Grid.getRowIndexForGridIndex(0), 0)
-    assert.strictEqual(Grid.getRowIndexForGridIndex(10), 1)
-    assert.strictEqual(Grid.getRowIndexForGridIndex(20), 2)
+    describe('#getRowIndexForGridIndex()', function () {
+        it('should get the row index for the given grid index', function () {
+            assert.strictEqual(Grid.getRowIndexForGridIndex(0), 0)
+            assert.strictEqual(Grid.getRowIndexForGridIndex(10), 1)
+            assert.strictEqual(Grid.getRowIndexForGridIndex(20), 2)
 
-    assert.strictEqual(Grid.getRowIndexForGridIndex(30), 3)
-    assert.strictEqual(Grid.getRowIndexForGridIndex(40), 4)
-    assert.strictEqual(Grid.getRowIndexForGridIndex(50), 5)
+            assert.strictEqual(Grid.getRowIndexForGridIndex(30), 3)
+            assert.strictEqual(Grid.getRowIndexForGridIndex(40), 4)
+            assert.strictEqual(Grid.getRowIndexForGridIndex(50), 5)
 
-    assert.strictEqual(Grid.getRowIndexForGridIndex(60), 6)
-    assert.strictEqual(Grid.getRowIndexForGridIndex(70), 7)
-    assert.strictEqual(Grid.getRowIndexForGridIndex(80), 8)
-}
+            assert.strictEqual(Grid.getRowIndexForGridIndex(60), 6)
+            assert.strictEqual(Grid.getRowIndexForGridIndex(70), 7)
+            assert.strictEqual(Grid.getRowIndexForGridIndex(80), 8)
+        })
+    })
 
-{ // Grid.getColumnIndexForGridIndex
-    assert.strictEqual(Grid.getColumnIndexForGridIndex(0), 0)
-    assert.strictEqual(Grid.getColumnIndexForGridIndex(10), 1)
-    assert.strictEqual(Grid.getColumnIndexForGridIndex(20), 2)
+    describe('#getColumnIndexForGridIndex()', function () {
+        it('should get the column index for the given grid index', function () {
+            assert.strictEqual(Grid.getColumnIndexForGridIndex(0), 0)
+            assert.strictEqual(Grid.getColumnIndexForGridIndex(10), 1)
+            assert.strictEqual(Grid.getColumnIndexForGridIndex(20), 2)
 
-    assert.strictEqual(Grid.getColumnIndexForGridIndex(30), 3)
-    assert.strictEqual(Grid.getColumnIndexForGridIndex(40), 4)
-    assert.strictEqual(Grid.getColumnIndexForGridIndex(50), 5)
+            assert.strictEqual(Grid.getColumnIndexForGridIndex(30), 3)
+            assert.strictEqual(Grid.getColumnIndexForGridIndex(40), 4)
+            assert.strictEqual(Grid.getColumnIndexForGridIndex(50), 5)
 
-    assert.strictEqual(Grid.getColumnIndexForGridIndex(60), 6)
-    assert.strictEqual(Grid.getColumnIndexForGridIndex(70), 7)
-    assert.strictEqual(Grid.getColumnIndexForGridIndex(80), 8)
-}
+            assert.strictEqual(Grid.getColumnIndexForGridIndex(60), 6)
+            assert.strictEqual(Grid.getColumnIndexForGridIndex(70), 7)
+            assert.strictEqual(Grid.getColumnIndexForGridIndex(80), 8)
+        })
+    })
 
-{ // Grid.getSquare
-    let grid = new Grid(sample_grid)
+    describe('#getSquare()', function () {
+        it('should get the square for the given index', function () {
+            let grid = new Grid(sample_grid)
 
-    assert.deepStrictEqual(grid.getSquare(0), [
-        0, 0, 0,
-        0, 5, 0,
-        0, 0, 0
-    ])
+            assert.deepStrictEqual(grid.getSquare(0), [
+                0, 0, 0,
+                0, 5, 0,
+                0, 0, 0
+            ])
 
-    assert.deepStrictEqual(grid.getSquare(4), [
-        0, 0, 2,
-        9, 0, 4,
-        6, 0, 0
-    ])
+            assert.deepStrictEqual(grid.getSquare(4), [
+                0, 0, 2,
+                9, 0, 4,
+                6, 0, 0
+            ])
 
-    assert.deepStrictEqual(grid.getSquare(8), [
-        0, 0, 0,
-        0, 6, 0,
-        0, 0, 0
-    ])
-}
+            assert.deepStrictEqual(grid.getSquare(8), [
+                0, 0, 0,
+                0, 6, 0,
+                0, 0, 0
+            ])
+        })
+    })
 
-{ // Grid.getRow
-    let grid = new Grid(sample_grid)
+    describe('#getRow()', function () {
+        it('should ', function () {
+            let grid = new Grid(sample_grid)
 
-    assert.deepStrictEqual(grid.getRow(0), [
-        0, 0, 0, 0, 4, 0, 9, 0, 0
-    ])
+            assert.deepStrictEqual(grid.getRow(0), [
+                0, 0, 0, 0, 4, 0, 9, 0, 0
+            ])
 
-    assert.deepStrictEqual(grid.getRow(4), [
-        0, 0, 7, 9, 0, 4, 6, 0, 0
-    ])
+            assert.deepStrictEqual(grid.getRow(4), [
+                0, 0, 7, 9, 0, 4, 6, 0, 0
+            ])
 
-    assert.deepStrictEqual(grid.getRow(8), [
-        0, 0, 6, 0, 3, 0, 0, 0, 0
-    ])
-}
+            assert.deepStrictEqual(grid.getRow(8), [
+                0, 0, 6, 0, 3, 0, 0, 0, 0
+            ])
+        })
+    })
 
-{ // Grid.getColumn
-    let grid = new Grid(sample_grid)
+    describe('#getColumn()', function () {
+        it('should ', function () {
+            let grid = new Grid(sample_grid)
 
-    assert.deepStrictEqual(grid.getColumn(0), [
-        0, 0, 0, 0, 0, 0, 2, 4, 0
-    ])
+            assert.deepStrictEqual(grid.getColumn(0), [
+                0, 0, 0, 0, 0, 0, 2, 4, 0
+            ])
 
-    assert.deepStrictEqual(grid.getColumn(4), [
-        4, 2, 0, 0, 0, 0, 0, 1, 3
-    ])
+            assert.deepStrictEqual(grid.getColumn(4), [
+                4, 2, 0, 0, 0, 0, 0, 1, 3
+            ])
 
-    assert.deepStrictEqual(grid.getColumn(8), [
-        0, 4, 6, 0, 0, 0, 0, 0, 0
-    ])
-}
+            assert.deepStrictEqual(grid.getColumn(8), [
+                0, 4, 6, 0, 0, 0, 0, 0, 0
+            ])
+        })
+    })
 
-{ // Grid.getPossibleValues
-    let grid = new Grid(sample_grid)
+    describe('#getPossibleValues()', function () {
+        it('should ', function () {
+            let grid = new Grid(sample_grid)
 
-    assert.deepStrictEqual(grid.getPossibleValues(0), [1, 3, 6, 7, 8])
-    assert.deepStrictEqual(grid.getPossibleValues(3), [3, 8])
-    assert.deepStrictEqual(grid.getPossibleValues(7), [2, 3, 5, 7])
+            assert.deepStrictEqual(grid.getPossibleValues(0), [1, 3, 6, 7, 8])
+            assert.deepStrictEqual(grid.getPossibleValues(3), [3, 8])
+            assert.deepStrictEqual(grid.getPossibleValues(7), [2, 3, 5, 7])
 
-    assert.deepStrictEqual(grid.getPossibleValues(27), [1, 3, 8, 9])
-    assert.deepStrictEqual(grid.getPossibleValues(30), [1, 3, 8])
-    assert.deepStrictEqual(grid.getPossibleValues(34), [3, 7, 9])
+            assert.deepStrictEqual(grid.getPossibleValues(27), [1, 3, 8, 9])
+            assert.deepStrictEqual(grid.getPossibleValues(30), [1, 3, 8])
+            assert.deepStrictEqual(grid.getPossibleValues(34), [3, 7, 9])
 
-    assert.deepStrictEqual(grid.getPossibleValues(56), [1, 3, 8, 9])
-    assert.deepStrictEqual(grid.getPossibleValues(57), [4, 8])
-    assert.deepStrictEqual(grid.getPossibleValues(60), [1, 3, 8])
-}
+            assert.deepStrictEqual(grid.getPossibleValues(56), [1, 3, 8, 9])
+            assert.deepStrictEqual(grid.getPossibleValues(57), [4, 8])
+            assert.deepStrictEqual(grid.getPossibleValues(60), [1, 3, 8])
+        })
+    })
+
+})

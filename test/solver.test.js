@@ -5,14 +5,18 @@ const Solver = require('../src/solver.js')
 
 const sample_grid = require('./data/grid-2.js')
 
-{ // Solver.solve
-    let grid = new Grid(sample_grid.unresolved)
-    let solver = new Solver(grid)
+describe('Solver', function () {
+    describe('#solve()', function () {
+        it('should solve the given Grid', function () {
+            let grid = new Grid(sample_grid.unresolved)
+            let solver = new Solver(grid)
 
-    let result = solver.solve()
+            let result = solver.solve()
 
-    assert.deepStrictEqual(
-        result.sudoku,
-        Grid.build_array_from_string(sample_grid.resolved)
-    )
-}
+            assert.deepStrictEqual(
+                result.sudoku,
+                Grid.build_array_from_string(sample_grid.resolved)
+            )
+        })
+    })
+})
