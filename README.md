@@ -42,6 +42,8 @@ Solved :
 4 7 5  6 9 2  8 3 1
 ```
 
+
+
 # Algorithm
 
 - For each cell:
@@ -63,46 +65,42 @@ Solved :
 2. If two or three identical possible values in the same square are aligned, remove possible values of the same number in the row or column they are aligned.
 3. Among the possible remaining values in a square, if they are aligned, do TODO #2 (above).
 
-# Vocabulary
-
-Ranges are inclusive.
-
-## Grid:
-A 9x9 Cell grid representing a Sudoku grid.
 
 
-## Cell: number
-A number in the grid, range 1 to 9.
+# The object model
 
-## CellIndex: number
-The index of a Cell in the Grid, range 0 to 80.
+Here is are TypeScript class definitions to show the object model underlying this solver.
+It is actually implemented as plain ES6 classes.
 
-## CellRowIndex: number
-The index of the Row of a Cell in the Grid, range 0 to 8.
+``` typescript
+class Grid {
+    cells: Cell[];
+    rows: Region[];
+    columns: Region[];
+    subgrids: Region[];
+}
 
-## CellColumnIndex: number
-The index of the Column of a Cell in the Grid, range 0 to 8.
+class Cell {
+    value: number;
+    // Possible values for this cell.
+    candidates: number[];
+    row: Region;
+    column: Region;
+    subgrid: Region;
+}
 
-## CellSquareIndex: number
-The index of a Cell in the Square, range 0 to 8.
+class Region {
+    constructor: (strategy: RegionStrategy) => void;
+    cells: Cell[];
+}
 
-
-## Row: number[]
-An array of Cell representing all the cells in a row in the Grid, length 9.
-
-## RowIndex: number
-The index of the Row in the Grid, range 0 to 8.
-
-
-## Column: number[]
-An array of Cell representing all the cells in a column in the Grid, length 9.
-
-## ColumnIndex: number
-The index of the Column in the Grid, range 0 to 8.
-
-
-## Square: number[]
-A 3x3 Cell grid representing one of the nine squares in a Sudoku grid.
-
-## SquareIndex: number
-The index of the Square in the Grid, range 0 to 8.
+class RegionStrategy {
+    // Get the next index, relative to the Grid, for a Region. Ranging from 0 to 80.
+    getNextIndex: (
+        // Current index in the grid. Ranging from 0 to 80.
+        grid_index: number,
+        // Index relative to the region. Ranging from 0 to 8.
+        region_index: number
+    ) => number;
+}
+```
