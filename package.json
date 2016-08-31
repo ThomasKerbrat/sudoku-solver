@@ -23,8 +23,7 @@
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.0.2",
-    "standard": "^8.0.0"
+    "mocha": "^3.0.2"
   },
   "bugs": {
     "url": "https://github.com/ThomasKerbrat/sudoku-solver/issues"
