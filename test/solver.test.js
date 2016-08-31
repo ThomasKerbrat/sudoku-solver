@@ -1,4 +1,4 @@
-const assert = require('assert')
+const assert = require('chai').assert
 
 const Grid = require('../src/grid.js')
 const Solver = require('../src/solver.js')

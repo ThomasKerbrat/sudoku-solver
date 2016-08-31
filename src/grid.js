@@ -1,4 +1,7 @@
-const assert = require('assert')
+const assert = require('chai').assert
+
+const Region = require('./region.js')
+const Cell = require('./cell.js')
 
 /**
  * A 9x9 Sudoku grid.
@@ -12,18 +15,34 @@ class Grid {
         let _grid = grid
 
         if (typeof grid === 'string') {
-
             if (grid.length !== 81) {
                 throw new RangeError('grid must be 81 numbers long')
+            } else {
+                _grid = Grid.build_array_from_string(grid)
             }
-
-            _grid = Grid.build_array_from_string(grid)
         } else if (!(grid instanceof Array)) {
             throw new TypeError('grid must be an array')
         }
 
         if (grid.length !== 81) {
             throw new RangeError('grid must be 81 numbers long')
+        }
+
+        // Instanciate Cells for each number of the grid.
+        this._cells = []
+        for (let index = 0; index < _grid.length; index++) {
+            this._cells.push(new Cell(_grid[index]))
+        }
+
+        // Create three collections of regions for the rows, columns, and subgrids.
+        this._rows = []
+        this._columns = []
+        this._subgrids = []
+
+        for (let index = 0; index < 9; index++) {
+            this._rows.push(new Region(this._cells, index, Grid.RowStrategy))
+            this._columns.push(new Region(this._cells, index, Grid.ColumnStrategy))
+            this._subgrids.push(new Region(this._cells, index, Grid.SubgridStrategy))
         }
 
         this.grid = _grid
@@ -40,113 +59,40 @@ class Grid {
         })
     }
 
-    /**
-     * @param {number} row A number between 0 and 8 included.
-     * @param {number} column A number between 0 and 8 included.
-     * @returns {number} A number representing the start index for a 3x3 square grid.
-     */
-    static getStartIndex(row, column) {
-        return (row * 27) + (column * 3)
-    }
+    // region Strategies
 
-    /**
-     * @param {number} grid_index The index of a cell in the grid, from 0 up to 80 included.
-     * @returns {number} The square index for the given grid index.
-     */
-    static getSquareIndexForGridIndex(grid_index) {
-        return Math.floor(Grid.getRowIndexForGridIndex(grid_index) / 3) * 3 +
-            Math.floor(Grid.getColumnIndexForGridIndex(grid_index) / 3)
-    }
+        /**
+         * @returns {number} The next grid index for a row.
+         */
+        static RowStrategy(region_index, cell_index) {
+            return (region_index * 9) + cell_index + 1
+        }
 
-    /**
-     * @param {number} grid_index The index of a cell in the grid, from 0 to 80 included.
-     * @returns {number} The row index, from 0 to 8, for the given grid index.
-     */
-    static getRowIndexForGridIndex(grid_index) {
-        return Math.floor(grid_index / 9)
-    }
+        /**
+         * @returns {number} The next grid index for a column.
+         */
+        static ColumnStrategy(region_index, cell_index) {
+            return region_index + ((cell_index + 1) * 9)
+        }
 
-    /**
-     * @param {number} grid_index The index of a cell in the grid, from 0 to 80 included.
-     * @returns {number} The column index, from 0 to 8, for the given grid index.
-     */
-    static getColumnIndexForGridIndex(grid_index) {
-        return grid_index % 9
-    }
+        /**
+         * @returns {number} The next grid index for a row.
+         */
+        static SubgridStrategy(region_index, cell_index) { // 4, 2
+            let index = Math.floor(region_index / 3) * 27
+            index += region_index % 3 * 3
+            index += Math.floor((cell_index + 1) / 3) * 9
+            index += (cell_index + 1) % 3
+            return index
+        }
+
+    // endregion
 
     /**
-     * @param {number} index A number between 0 and 8 included.
-     * @returns {number[]} The square at index.
+     * @return {Cell[]} Gets the grid's cells.
      */
-    getSquare(index) {
-        if (typeof index !== 'number') {
-            throw new TypeError('index must be a number')
-        }
-
-        if (index < 0 || index >= 9) {
-            throw new RangeError('index must be >= 0 and < 9')
-        }
-
-        let grid_row = Math.floor(index / 3)
-        let grid_column = index % 3
-        let grid_start_index = Grid.getStartIndex(grid_row, grid_column)
-
-        let sub_grid = []
-
-        for (let i = 0, grid_index = grid_start_index; i < 9; i++ , grid_index++) {
-            if (i !== 0 && i % 3 === 0) {
-                grid_index += 6
-            }
-
-            sub_grid.push(this.grid[grid_index])
-        }
-
-        return sub_grid
-    }
-
-    /**
-     * @param {number} index A number between 0 and 8 included.
-     * @returns {number[]} The row at index.
-     */
-    getRow(index) {
-        if (typeof index !== 'number') {
-            throw new TypeError('index must be a number')
-        }
-
-        if (index < 0 || index >= 9) {
-            throw new RangeError('index must be >= 0 and < 9')
-        }
-
-        let grid_start_index = index * 9
-        let row = []
-
-        for (let grid_index = grid_start_index; grid_index < grid_start_index + 9; grid_index++) {
-            row.push(this.grid[grid_index])
-        }
-
-        return row
-    }
-
-    /**
-     * @param {number} index A number between 0 and 8 included.
-     * @returns {number[]} The row at index.
-     */
-    getColumn(index) {
-        if (typeof index !== 'number') {
-            throw new TypeError('index must be a number')
-        }
-
-        if (index < 0 || index >= 9) {
-            throw new RangeError('index must be >= 0 and < 9')
-        }
-
-        let column = []
-
-        for (let grid_index = index; grid_index < 81; grid_index += 9) {
-            column.push(this.grid[grid_index])
-        }
-
-        return column
+    get cells() {
+        return this._cells
     }
 
     /**
@@ -159,7 +105,7 @@ class Grid {
 
         // Removes all values in the { from: values } array that are present in the { present_in: array } array.
         function removeValues({ from: values, present_in: array }) {
-            for (var index = 0; index < array.length && values.length > 0; index++) {
+            for (let index = 0; index < array.length && values.length > 0; index++) {
                 let _number = array[index]
                 if (_number === 0) { continue }
 

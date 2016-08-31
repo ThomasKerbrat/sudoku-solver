@@ -4,65 +4,13 @@ const Cell = require('../src/cell.js')
 const Region = require('../src/region.js')
 const Grid = require('../src/grid.js')
 
-const sample_grid = require('./data/grid-2.js')
-let grid = new Grid(sample_grid.unresolved)
-let strategy = function strategy(a, b) { }
-
-const _region = new Region(grid, strategy)
-
 describe('Cell', function () {
 
-    describe('#constructor()', function () {
-
-        it('should take a number ranging from 0 to 9 included', function () {
-            assert.doesNotThrow(function () {
-                cell = new Cell(0, _region, _region, _region)
-            })
-            assert.strictEqual(cell.value, 0)
-
-            assert.doesNotThrow(function () {
-                cell = new Cell(5, _region, _region, _region)
-            })
-            assert.strictEqual(cell.value, 5)
-
-            assert.doesNotThrow(function () {
-                cell = new Cell(9, _region, _region, _region)
-            })
-            assert.strictEqual(cell.value, 9)
-        })
-
-        it('should throw a TypeError if the value is not a number', function () {
-            assert.throws(function () {
-                let cell = new Cell(undefined)
-            }, TypeError, /value must be a number/)
-            assert.throws(function () {
-                let cell = new Cell(null)
-            }, TypeError, /value must be a number/)
-            assert.throws(function () {
-                let cell = new Cell({})
-            }, TypeError, /value must be a number/)
-            assert.throws(function () {
-                let cell = new Cell([])
-            }, TypeError, /value must be a number/)
-        })
-
-        it('should thow a RangeError if the given value is < 0 or > 9', function () {
-            assert.throws(function () {
-                let cell = new Cell(-1)
-            }, RangeError)
-            assert.throws(function () {
-                let cell = new Cell(10)
-            }, RangeError)
-        })
-
-    })
-
     describe('#value', function () {
-
         let cell
 
         beforeEach(function () {
-            cell = new Cell(4, _region, _region, _region)
+            cell = new Cell(4)
         })
 
         it('should be defined', function () {
@@ -81,11 +29,10 @@ describe('Cell', function () {
     })
 
     describe('#has_value', function () {
-
         let cell
 
         beforeEach(function () {
-            cell = new Cell(4, _region, _region, _region)
+            cell = new Cell(4)
         })
 
         it('should be defined', function () {
@@ -93,75 +40,72 @@ describe('Cell', function () {
         })
 
         it('should be false when value is 0', function () {
-            cell = new Cell(0, _region, _region, _region)
+            cell = new Cell(0)
             assert.strictEqual(cell.has_value, false)
         })
 
         it('should be true when value is between 1 and 9', function () {
-            cell = new Cell(5, _region, _region, _region)
+            cell = new Cell(5)
             assert.strictEqual(cell.has_value, true)
         })
-
     })
 
-    describe('#candidates', function () {
-
+    describe('#compute_candidates()', function () {
         let cell
 
         beforeEach(function () {
-            cell = new Cell(4, _region, _region, _region)
+            cell = new Cell(4)
         })
 
-        it('should be defined', function () {
-            assert.isDefined(cell.candidates)
-        })
+        it('should return all possible values for a cell', function () {
+            assert.deepEqual(cell.compute_candidates(), [1, 3, 6, 7, 8])
+            assert.deepEqual(cell.compute_candidates(), [3, 8])
+            assert.deepEqual(cell.compute_candidates(), [2, 3, 5, 7])
 
-        it('should have an empty value when instanciated', function () {
-            assert.strictEqual(cell.candidates instanceof Array, true)
-            assert.strictEqual(cell.candidates.length, 0)
+            assert.deepEqual(cell.compute_candidates(), [1, 3, 8, 9])
+            assert.deepEqual(cell.compute_candidates(), [1, 3, 8])
+            assert.deepEqual(cell.compute_candidates(), [3, 7, 9])
+
+            assert.deepEqual(cell.compute_candidates(), [1, 3, 8, 9])
+            assert.deepEqual(cell.compute_candidates(), [4, 8])
+            assert.deepEqual(cell.compute_candidates(), [1, 3, 8])
         })
     })
 
     describe('#row', function () {
-
         let cell
 
         beforeEach(function () {
-            cell = new Cell(1, _region, _region, _region)
+            cell = new Cell(1)
         })
 
         it('should be defined', function () {
             assert.isDefined(cell.row)
         })
-
     })
 
     describe('#column', function () {
-
         let cell
 
         beforeEach(function () {
-            cell = new Cell(1, _region, _region, _region)
+            cell = new Cell(1)
         })
 
         it('should be defined', function () {
             assert.isDefined(cell.column)
         })
-
     })
 
     describe('#subgrid', function () {
-
         let cell
 
         beforeEach(function () {
-            cell = new Cell(1, _region, _region, _region)
+            cell = new Cell(1)
         })
 
         it('should be defined', function () {
             assert.isDefined(cell.subgrid)
         })
-
     })
 
 })

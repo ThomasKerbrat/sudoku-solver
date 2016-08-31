@@ -1,24 +1,24 @@
-const Grid = require('./grid.js')
-
 class Region {
 
-    constructor(grid, strategy) {
-        if (!(grid instanceof Grid)) { throw new TypeError('grid must be a Grid') }
+    constructor(grid_cells, region_index, strategy) {
+        if (!(grid_cells instanceof Array)) { throw new TypeError('grid_cells must be an Array') }
+        if (grid_cells.length !== 81) { console.log( grid_cells.length ); throw new RangeError('grid_cells must have a length of 81') }
+        if (typeof region_index !== 'number') { throw new TypeError('region_index must be a number') }
         if (typeof strategy !== 'function') { throw new TypeError('strategy must be a function') }
 
-        this._grid = grid
         this._getNextIndex = strategy
+
+        this._cells = []
+        for (let index = 0; index < 9; index++) {
+            this._cells.push(grid_cells[this._getNextIndex(region_index, index)])
+        }
     }
 
     /**
-     * @returns {Grid} Gets the grid associated with this region.
+     * @returns {Cell[]} Gets the cells associated with this region.
      */
-    get grid() {
-        return this._grid
-    }
-
     get cells() {
-        return []
+        return this._cells
     }
 
 }
