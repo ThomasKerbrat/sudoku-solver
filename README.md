@@ -82,7 +82,7 @@ class Grid {
 
 class Cell {
     value: number;
-    has_value: boolean;
+    hasValue: boolean;
     // Possible values for this cell.
     candidates: number[];
     row: Region;
@@ -99,7 +99,7 @@ class RegionStrategy {
     // Get the next index, relative to the Grid, for a Region. Ranging from 0 to 80.
     getNextIndex: (
         // Current index in the grid. Ranging from 0 to 80.
-        grid_index: number,
+        gridIndex: number,
         // Index relative to the region. Ranging from 0 to 8.
         region_index: number
     ) => number;
