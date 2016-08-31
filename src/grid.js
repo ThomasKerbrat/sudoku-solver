@@ -30,7 +30,7 @@ class Grid {
 
         // Instanciate Cells for each number of the grid.
         this._cells = []
-        for (let index = 0; index < _grid.length; index++) {
+        for (let index = 0; index < (9 * 9); index++) {
             this._cells.push(new Cell(_grid[index]))
         }
 
@@ -40,9 +40,9 @@ class Grid {
         this._subgrids = []
 
         for (let index = 0; index < 9; index++) {
-            this._rows.push(new Region(this._cells, index, Grid.RowStrategy))
-            this._columns.push(new Region(this._cells, index, Grid.ColumnStrategy))
-            this._subgrids.push(new Region(this._cells, index, Grid.SubgridStrategy))
+            this._rows.push(new Region(this._cells, index, 'row', Grid.RowStrategy))
+            this._columns.push(new Region(this._cells, index, 'column', Grid.ColumnStrategy))
+            this._subgrids.push(new Region(this._cells, index, 'subgrid', Grid.SubgridStrategy))
         }
 
         this.grid = _grid
@@ -61,38 +61,47 @@ class Grid {
 
     // region Strategies
 
-        /**
-         * @returns {number} The next grid index for a row.
-         */
-        static RowStrategy(region_index, cell_index) {
-            return (region_index * 9) + cell_index + 1
-        }
+    /**
+     * @returns {number} The next grid index for a row.
+     */
+    static RowStrategy(region_index, cell_index) {
+        return (region_index * 9) + cell_index
+    }
 
-        /**
-         * @returns {number} The next grid index for a column.
-         */
-        static ColumnStrategy(region_index, cell_index) {
-            return region_index + ((cell_index + 1) * 9)
-        }
+    /**
+     * @returns {number} The next grid index for a column.
+     */
+    static ColumnStrategy(region_index, cell_index) {
+        return region_index + ((cell_index) * 9)
+    }
 
-        /**
-         * @returns {number} The next grid index for a row.
-         */
-        static SubgridStrategy(region_index, cell_index) { // 4, 2
-            let index = Math.floor(region_index / 3) * 27
-            index += region_index % 3 * 3
-            index += Math.floor((cell_index + 1) / 3) * 9
-            index += (cell_index + 1) % 3
-            return index
-        }
+    /**
+     * @returns {number} The next grid index for a row.
+     */
+    static SubgridStrategy(region_index, cell_index) { // 4, 2
+        let index = Math.floor(region_index / 3) * 27
+        index += region_index % 3 * 3
+        index += Math.floor((cell_index) / 3) * 9
+        index += (cell_index) % 3
+        return index
+    }
 
     // endregion
 
-    /**
-     * @return {Cell[]} Gets the grid's cells.
-     */
     get cells() {
         return this._cells
+    }
+
+    get rows() {
+        return this._rows
+    }
+
+    get columns() {
+        return this._columns
+    }
+
+    get subgrids() {
+        return this._subgrids
     }
 
     /**

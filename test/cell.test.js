@@ -1,8 +1,11 @@
 const assert = require('chai').assert
 
-const Cell = require('../src/cell.js')
-const Region = require('../src/region.js')
 const Grid = require('../src/grid.js')
+const Region = require('../src/region.js')
+const Cell = require('../src/cell.js')
+
+const sample_grid = require('./data/grid-1.js').unresolved
+let grid = new Grid(sample_grid)
 
 describe('Cell', function () {
 
@@ -54,56 +57,45 @@ describe('Cell', function () {
         let cell
 
         beforeEach(function () {
-            cell = new Cell(4)
+            cell = grid.cells[4]
         })
 
-        it('should return all possible values for a cell', function () {
+        xit('should return all possible values for cell at index 20', function () {
             assert.deepEqual(cell.compute_candidates(), [1, 3, 6, 7, 8])
             assert.deepEqual(cell.compute_candidates(), [3, 8])
             assert.deepEqual(cell.compute_candidates(), [2, 3, 5, 7])
+        })
 
-            assert.deepEqual(cell.compute_candidates(), [1, 3, 8, 9])
-            assert.deepEqual(cell.compute_candidates(), [1, 3, 8])
-            assert.deepEqual(cell.compute_candidates(), [3, 7, 9])
+        xit('should return all possible values for cell at index 40', function () {
+            assert.deepEqual(cell.compute_candidates(), [1, 3, 6, 7, 8])
+            assert.deepEqual(cell.compute_candidates(), [3, 8])
+            assert.deepEqual(cell.compute_candidates(), [2, 3, 5, 7])
+        })
 
-            assert.deepEqual(cell.compute_candidates(), [1, 3, 8, 9])
-            assert.deepEqual(cell.compute_candidates(), [4, 8])
-            assert.deepEqual(cell.compute_candidates(), [1, 3, 8])
+        xit('should return all possible values for cell at index 60', function () {
+            assert.deepEqual(cell.compute_candidates(), [1, 3, 6, 7, 8])
+            assert.deepEqual(cell.compute_candidates(), [3, 8])
+            assert.deepEqual(cell.compute_candidates(), [2, 3, 5, 7])
         })
     })
 
     describe('#row', function () {
-        let cell
-
-        beforeEach(function () {
-            cell = new Cell(1)
-        })
-
         it('should be defined', function () {
+            let cell = new Cell(0)
             assert.isDefined(cell.row)
         })
     })
 
     describe('#column', function () {
-        let cell
-
-        beforeEach(function () {
-            cell = new Cell(1)
-        })
-
         it('should be defined', function () {
+            let cell = new Cell(0)
             assert.isDefined(cell.column)
         })
     })
 
     describe('#subgrid', function () {
-        let cell
-
-        beforeEach(function () {
-            cell = new Cell(1)
-        })
-
         it('should be defined', function () {
+            let cell = new Cell(0)
             assert.isDefined(cell.subgrid)
         })
     })
