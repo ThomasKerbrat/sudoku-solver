@@ -45,8 +45,6 @@ class Grid {
             this._columns.push(new Region(this._cells, index, 'column', RegionStrategy.Column))
             this._subgrids.push(new Region(this._cells, index, 'subgrid', RegionStrategy.Subgrid))
         }
-
-        this.grid = _grid
     }
 
     /**
@@ -74,6 +72,33 @@ class Grid {
 
     get subgrids() {
         return this._subgrids
+    }
+
+    /**
+     * @returns {{ solved: boolean, iterations: number, sudoku: Cell[]}} The solved grid.
+     */
+    solve() {
+        let solved = false
+        let iterations = 0
+
+        while (!solved && iterations < 100) {
+            solved = true
+            iterations++
+
+            this._cells.forEach(function (cell) {
+                if (cell.has_value) { return }
+
+                let possible_values = cell.compute_candidates()
+
+                if (possible_values.length === 1) {
+                    cell.value = possible_values[0]
+                } else if (possible_values.length > 1) {
+                    solved = false
+                }
+            })
+        }
+
+        return { solved, iterations, sudoku: this._cells }
     }
 
 }

@@ -25,9 +25,18 @@ describe('Cell', function () {
             assert.strictEqual(result, 4)
         })
 
-        it('should be readonly', function () {
+        it('should be assignable', function () {
             cell.value = 8
-            assert.strictEqual(cell.value, 4)
+            assert.strictEqual(cell.value, 8)
+        })
+
+        it('should thow if invalid value is passed', function () {
+            assert.throws(function () {
+                cell.value = null
+            }, TypeError, /value must be a number/)
+            assert.throws(function () {
+                cell.value = 10
+            }, RangeError, /value must be within the 1 to 9 range/)
         })
     })
 

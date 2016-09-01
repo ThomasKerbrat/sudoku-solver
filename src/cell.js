@@ -31,6 +31,15 @@ class Cell {
     }
 
     /**
+     * @description Sets the cell's value.
+     */
+    set value(value) {
+        if (typeof value !== 'number') { throw TypeError('value must be a number') }
+        if (value < 1 || value > 9) { throw RangeError('value must be within the 1 to 9 range') }
+        this._value = value
+     }
+
+    /**
      * @returns {number} Gets whether the cell has a value or not.
      */
     get has_value() {

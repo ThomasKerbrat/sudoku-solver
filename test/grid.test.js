@@ -3,7 +3,8 @@ const assert = require('chai').assert
 const Cell = require('../src/cell.js')
 const Grid = require('../src/grid.js')
 
-const sample_grid = require('./data/grid-1.js').unresolved
+const sample_grid = require('./data/grid-1.js')
+const sample_grid_2 = require('./data/grid-2.js')
 
 describe('Grid', function () {
 
@@ -11,7 +12,7 @@ describe('Grid', function () {
         let grid
 
         beforeEach(function () {
-            grid = new Grid(sample_grid)
+            grid = new Grid(sample_grid.unresolved)
         })
 
         it('should instanciate Cells', function () {
@@ -41,7 +42,7 @@ describe('Grid', function () {
         let grid
 
         beforeEach(function () {
-            grid = new Grid(sample_grid)
+            grid = new Grid(sample_grid.unresolved)
         })
 
         it('should be defined', function () {
@@ -58,7 +59,7 @@ describe('Grid', function () {
         let grid
 
         beforeEach(function () {
-            grid = new Grid(sample_grid)
+            grid = new Grid(sample_grid.unresolved)
         })
 
         it('should be defined', function () {
@@ -75,7 +76,7 @@ describe('Grid', function () {
         let grid
 
         beforeEach(function () {
-            grid = new Grid(sample_grid)
+            grid = new Grid(sample_grid.unresolved)
         })
 
         it('should be defined', function () {
@@ -92,7 +93,7 @@ describe('Grid', function () {
         let grid
 
         beforeEach(function () {
-            grid = new Grid(sample_grid)
+            grid = new Grid(sample_grid.unresolved)
         })
 
         it('should be defined', function () {
@@ -102,6 +103,32 @@ describe('Grid', function () {
         it('should be readonly', function () {
             delete grid.subgrids
             assert.isDefined(grid.subgrids)
+        })
+    })
+
+    describe('#solve()', function () {
+        it('should solve Grid 1', function () {
+            let grid = new Grid(sample_grid.unresolved)
+            let solved_grid = Grid.build_array_from_string(sample_grid.resolved)
+
+            let result = grid.solve()
+
+            assert.strictEqual(result.solved, true)
+            for (var index = 0; index < solved_grid.length; index++) {
+                assert.strictEqual(result.sudoku[index].value, solved_grid[index])
+            }
+        })
+
+        it('should solve Grid 2', function () {
+            let grid = new Grid(sample_grid_2.unresolved)
+            let solved_grid = Grid.build_array_from_string(sample_grid_2.resolved)
+
+            let result = grid.solve()
+
+            assert.strictEqual(result.solved, true)
+            for (var index = 0; index < solved_grid.length; index++) {
+                assert.strictEqual(result.sudoku[index].value, solved_grid[index])
+            }
         })
     })
 
