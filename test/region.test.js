@@ -2,13 +2,14 @@ const assert = require('chai').assert
 
 const Grid = require('../src/grid.js')
 const Region = require('../src/region.js')
+const RegionStrategy = require('../src/region-strategy.js')
 const Cell = require('../src/cell.js')
 
 const sample_grid = require('./data/grid-1.js').unresolved
 
 function createRegion() {
     let grid = new Grid(sample_grid)
-    return new Region(grid.cells, 0, 'row', Grid.RowStrategy)
+    return new Region(grid.cells, 0, 'row', RegionStrategy.Row)
 }
 
 describe('Region', function () {

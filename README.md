@@ -84,14 +84,23 @@ class Cell {
     value: number;
     has_value: boolean;
     // Possible values for this cell.
-    candidates: number[];
+    compute_candidates: () => number[];
     row: Region;
     column: Region;
     subgrid: Region;
 }
 
 class Region {
-    constructor: (grid: Grid, strategy: RegionStrategy) => void;
+    constructor: (
+        // All the cells in the grid.
+        grid_cells: Cell[],
+        // Index of the region relative to the grid. Ranging from 0 to 8.
+        region_index: number,
+        // Type of the region (e.g. row, column or subgrid).
+        region_type: string,
+        // A function to compute the index of a cell, inside a region, relative to the grid.
+        strategy: function
+    ) => void;
     cells: Cell[];
 }
 

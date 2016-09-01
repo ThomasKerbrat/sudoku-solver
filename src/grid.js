@@ -1,6 +1,7 @@
 const assert = require('chai').assert
 
 const Region = require('./region.js')
+const RegionStrategy = require('./region-strategy.js')
 const Cell = require('./cell.js')
 
 /**
@@ -40,9 +41,9 @@ class Grid {
         this._subgrids = []
 
         for (let index = 0; index < 9; index++) {
-            this._rows.push(new Region(this._cells, index, 'row', Grid.RowStrategy))
-            this._columns.push(new Region(this._cells, index, 'column', Grid.ColumnStrategy))
-            this._subgrids.push(new Region(this._cells, index, 'subgrid', Grid.SubgridStrategy))
+            this._rows.push(new Region(this._cells, index, 'row', RegionStrategy.Row))
+            this._columns.push(new Region(this._cells, index, 'column', RegionStrategy.Column))
+            this._subgrids.push(new Region(this._cells, index, 'subgrid', RegionStrategy.Subgrid))
         }
 
         this.grid = _grid
@@ -58,35 +59,6 @@ class Grid {
             return Number.isNaN(value) ? 0 : value
         })
     }
-
-    // region Strategies
-
-    /**
-     * @returns {number} The next grid index for a row.
-     */
-    static RowStrategy(region_index, cell_index) {
-        return (region_index * 9) + cell_index
-    }
-
-    /**
-     * @returns {number} The next grid index for a column.
-     */
-    static ColumnStrategy(region_index, cell_index) {
-        return region_index + ((cell_index) * 9)
-    }
-
-    /**
-     * @returns {number} The next grid index for a row.
-     */
-    static SubgridStrategy(region_index, cell_index) { // 4, 2
-        let index = Math.floor(region_index / 3) * 27
-        index += region_index % 3 * 3
-        index += Math.floor((cell_index) / 3) * 9
-        index += (cell_index) % 3
-        return index
-    }
-
-    // endregion
 
     get cells() {
         return this._cells

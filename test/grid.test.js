@@ -105,31 +105,4 @@ describe('Grid', function () {
         })
     })
 
-    describe('#RowStrategy', function () {
-        it('should return correct indexes for rows', function () {
-            assert.strictEqual(Grid.RowStrategy(0, 1), 1)
-            assert.strictEqual(Grid.RowStrategy(1, 1), 10)
-            assert.strictEqual(Grid.RowStrategy(2, 1), 19)
-            assert.strictEqual(Grid.RowStrategy(8, 6), 78)
-        })
-    })
-
-    describe('#ColumnStrategy', function () {
-        it('should return correct indexes for columns', function () {
-            assert.strictEqual(Grid.ColumnStrategy(0, 1), 9)
-            assert.strictEqual(Grid.ColumnStrategy(1, 1), 10)
-            assert.strictEqual(Grid.ColumnStrategy(2, 1), 11)
-            assert.strictEqual(Grid.ColumnStrategy(8, 6), 62)
-        })
-    })
-
-    describe('#SubgridStrategy', function () {
-        it('should return correct indexes for subgrids', function () {
-            assert.strictEqual(Grid.SubgridStrategy(0, 1), 1)
-            assert.strictEqual(Grid.SubgridStrategy(0, 3), 9)
-            assert.strictEqual(Grid.SubgridStrategy(4, 1), 31)
-            assert.strictEqual(Grid.SubgridStrategy(4, 3), 39)
-        })
-    })
-
 })
