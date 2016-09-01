@@ -1,3 +1,5 @@
+const assert = require('assert')
+
 const Region = require('./region.js')
 
 /**
@@ -10,6 +12,11 @@ class Cell {
         if (value < 0 || value > 9) { throw new RangeError() }
 
         this._value = value
+
+        this.possible_values = null
+        if (value === 0) {
+            this.possible_values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        }
 
         this.row = null
         this.column = null
@@ -31,10 +38,31 @@ class Cell {
     }
 
     /**
-     *@returns {number[]} Gets the cell's possible values.
+     * @description Reads all numbers in the row, column and subgrid to compute the possible values of a cell.
+     * @returns {number[]} Gets the cell's possible values.
      */
     compute_candidates() {
-        return this._candidates
+        if (this.has_value) { throw new Error('This cell has already a value') }
+
+        let self = this
+
+        function eliminate(cell) {
+            if (cell === self) { return }
+            if (self.possible_values.length === 0) { return }
+
+            let cell_index = self.possible_values.indexOf(cell.value)
+            if (cell.has_value && cell_index !== -1) {
+                self.possible_values.splice(cell_index, 1)
+            }
+        }
+
+        this.row.cells.forEach(eliminate)
+        this.column.cells.forEach(eliminate)
+        this.subgrid.cells.forEach(eliminate)
+
+        assert.strictEqual(this.possible_values.length > 0, true)
+
+        return this.possible_values
     }
 
 }

@@ -54,28 +54,17 @@ describe('Cell', function () {
     })
 
     describe('#compute_candidates()', function () {
-        let cell
-
-        beforeEach(function () {
-            cell = grid.cells[4]
+        it('should thow and error if the call has already a value', function () {
+            let cell = grid.cells[4]
+            assert.throws(function () {
+                cell.compute_candidates()
+            }, Error, /This cell has already a value/)
         })
 
-        xit('should return all possible values for cell at index 20', function () {
-            assert.deepEqual(cell.compute_candidates(), [1, 3, 6, 7, 8])
-            assert.deepEqual(cell.compute_candidates(), [3, 8])
-            assert.deepEqual(cell.compute_candidates(), [2, 3, 5, 7])
-        })
-
-        xit('should return all possible values for cell at index 40', function () {
-            assert.deepEqual(cell.compute_candidates(), [1, 3, 6, 7, 8])
-            assert.deepEqual(cell.compute_candidates(), [3, 8])
-            assert.deepEqual(cell.compute_candidates(), [2, 3, 5, 7])
-        })
-
-        xit('should return all possible values for cell at index 60', function () {
-            assert.deepEqual(cell.compute_candidates(), [1, 3, 6, 7, 8])
-            assert.deepEqual(cell.compute_candidates(), [3, 8])
-            assert.deepEqual(cell.compute_candidates(), [2, 3, 5, 7])
+        it('should return all possible values for cell at given index', function () {
+            assert.deepEqual(grid.cells[0].compute_candidates(), [1, 3, 6, 7, 8])
+            assert.deepEqual(grid.cells[40].compute_candidates(), [5, 8])
+            assert.deepEqual(grid.cells[80].compute_candidates(), [1, 2, 5, 7, 8, 9])
         })
     })
 

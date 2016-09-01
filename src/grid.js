@@ -76,50 +76,6 @@ class Grid {
         return this._subgrids
     }
 
-    /**
-     * @description Reads all numbers in the square, row and column to compute the possible values of a cell.
-     * @param {number} index The index of a cell in the grid, from 0 up to 80 included.
-     * @returns {number[]} An array of all possible value for the requested cell.
-     */
-    getPossibleValues(index) {
-        let values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-        // Removes all values in the { from: values } array that are present in the { present_in: array } array.
-        function removeValues({ from: values, present_in: array }) {
-            for (let index = 0; index < array.length && values.length > 0; index++) {
-                let _number = array[index]
-                if (_number === 0) { continue }
-
-                let value_index
-                if ((value_index = values.indexOf(_number)) !== -1) {
-                    values.splice(value_index, 1)
-                }
-            }
-        }
-
-        removeValues({
-            from: values,
-            present_in: this.getSquare(Grid.getSquareIndexForGridIndex(index))
-        })
-
-        if (values.length === 1) { return values }
-
-        removeValues({
-            from: values,
-            present_in: this.getRow(Grid.getRowIndexForGridIndex(index))
-        })
-
-        if (values.length === 1) { return values }
-
-        removeValues({
-            from: values,
-            present_in: this.getColumn(Grid.getColumnIndexForGridIndex(index))
-        })
-
-        assert.notStrictEqual(values.length, 0, '0 possible values')
-        return values
-    }
-
 }
 
 module.exports = Grid
