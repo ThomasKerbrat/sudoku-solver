@@ -7,14 +7,12 @@ const sample_grid = require('./test/data/grid-2.js')
 let grid = new Grid(sample_grid.unresolved)
 
 let unsolved_grid = Grid.build_array_from_string(sample_grid.unresolved)
-unsolved_grid = unsolved_grid.map(function (value) {
-    return value === 0 ? '.' : value
-})
+unsolved_grid = unsolved_grid.map(function (value) { return value === 0 ? '.' : value })
 console.log('Unsolved :')
 console.log(render(unsolved_grid, os.EOL), os.EOL)
 
 let result = grid.solve()
-result.sudoku = result.sudoku.map(function (value) { return value.value })
+result.sudoku = result.sudoku.map(function (cell) { return cell.value })
 console.log('Solved :')
 console.log(render(result.sudoku, os.EOL))
 
