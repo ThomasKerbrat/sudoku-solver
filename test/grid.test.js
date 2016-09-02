@@ -130,6 +130,18 @@ describe('Grid', function () {
                 assert.strictEqual(result.sudoku[index].value, solved_grid[index])
             }
         })
+
+        it('should solve Grid 3', function () {
+            let grid = new Grid(sample_grid_3.unresolved)
+            let solved_grid = Grid.build_array_from_string(sample_grid_3.resolved)
+
+            let result = grid.solve()
+
+            assert.strictEqual(result.solved, true)
+            for (var index = 0; index < solved_grid.length; index++) {
+                assert.strictEqual(result.sudoku[index].value, solved_grid[index])
+            }
+        })
     })
 
 })
