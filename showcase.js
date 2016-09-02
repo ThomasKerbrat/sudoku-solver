@@ -1,25 +1,20 @@
 const os = require('os')
 
 const Grid = require('./src/grid.js')
-const Solver = require('./src/solver.js')
 
 const sample_grid = require('./test/data/grid-2.js')
 
 let grid = new Grid(sample_grid.unresolved)
-let solver = new Solver(grid)
 
 let unsolved_grid = Grid.build_array_from_string(sample_grid.unresolved)
 unsolved_grid = unsolved_grid.map(function (value) {
-    if (value === 0) {
-        return '.'
-    } else {
-        return value
-    }
+    return value === 0 ? '.' : value
 })
 console.log('Unsolved :')
 console.log(render(unsolved_grid, os.EOL), os.EOL)
 
-let result = solver.solve()
+let result = grid.solve()
+result.sudoku = result.sudoku.map(function (value) { return value.value })
 console.log('Solved :')
 console.log(render(result.sudoku, os.EOL))
 
