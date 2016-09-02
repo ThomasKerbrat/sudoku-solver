@@ -49,19 +49,17 @@ Solved :
 - For each cell:
     - Initialize possible value to the 1..9 range
 
-- While the grid is not solved:
+- While the flag to re-run is set to true:
     - Set the flag to re-run to false.
     - For each cell:
-        - Eliminate the possibles values by looking for them in the 3x3 grid, row and column.
+        - If the cell has a value, go to the next cell.
+        - Compute the possibles values by looking for already set values in the 3x3 subgrid, row and column.
         - If a cell contains only one possible value, set that value for the cell.
         - If a cell still contains possible values, set a flag to re-run to true.
-    - If the flag to re-run is set to true, re-run.
-
-- Print the result in the console.
 
 ## To do
 
-1. If a possible number is present in only one cell of a square, set that number in the cell.
+1. If a possible number is present in only one cell of a row, a subgrid or a column, set that number in the cell.
 2. If two or three identical possible values in the same square are aligned, remove possible values of the same number in the row or column they are aligned.
 3. Among the possible remaining values in a square, if they are aligned, do TODO #2 (above).
 
@@ -78,12 +76,16 @@ class Grid {
     rows: Region[];
     columns: Region[];
     subgrids: Region[];
+    solve: () => {
+        solved: boolean;
+        iterations: number;
+        sudoku: Cell[];
+    }
 }
 
 class Cell {
     value: number;
     has_value: boolean;
-    // Possible values for this cell.
     compute_candidates: () => number[];
     row: Region;
     column: Region;
@@ -105,12 +107,13 @@ class Region {
 }
 
 class RegionStrategy {
-    // Get the next index, relative to the Grid, for a Region. Ranging from 0 to 80.
-    getNextIndex: (
+    static Row: (
         // Current index in the grid. Ranging from 0 to 80.
         grid_index: number,
         // Index relative to the region. Ranging from 0 to 8.
         region_index: number
     ) => number;
+    static Column: (grid_cells, region_index) => number;
+    static Subgrid: (grid_cells, region_index) => number;
 }
 ```
