@@ -62,18 +62,6 @@ class Grid {
         return this._cells
     }
 
-    get rows() {
-        return this._rows
-    }
-
-    get columns() {
-        return this._columns
-    }
-
-    get subgrids() {
-        return this._subgrids
-    }
-
     /**
      * @returns {{ solved: boolean, iterations: number, sudoku: Cell[]}} The solved grid.
      */
