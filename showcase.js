@@ -16,9 +16,8 @@ let result = grid.solve()
 let end = process.hrtime(start)
 
 result.sudoku = result.sudoku.map(function (cell) { return cell.value })
-console.log('Solved:')
+console.log('Solved (' + Number((end[0] + end[1] / 1e9) * 1e3).toLocaleString('en') + 'ms):')
 console.log(render(result.sudoku, os.EOL), os.EOL)
-console.log('Duration:', Number(end[0] + end[1] / 1e9).toLocaleString('en'), 's')
 
 function render(grid, end_of_line) {
     let output = []
