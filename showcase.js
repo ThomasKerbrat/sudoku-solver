@@ -8,13 +8,17 @@ let grid = new Grid(sample_grid.unresolved)
 
 let unsolved_grid = Grid.build_array_from_string(sample_grid.unresolved)
 unsolved_grid = unsolved_grid.map(function (value) { return value === 0 ? '.' : value })
-console.log('Unsolved :')
+console.log('Unsolved:')
 console.log(render(unsolved_grid, os.EOL), os.EOL)
 
+let start = process.hrtime()
 let result = grid.solve()
+let end = process.hrtime(start)
+
 result.sudoku = result.sudoku.map(function (cell) { return cell.value })
-console.log('Solved :')
-console.log(render(result.sudoku, os.EOL))
+console.log('Solved:')
+console.log(render(result.sudoku, os.EOL), os.EOL)
+console.log('Duration:', Number(end[0] + end[1] / 1e9).toLocaleString('en'), 's')
 
 function render(grid, end_of_line) {
     let output = []
