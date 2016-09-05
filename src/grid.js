@@ -4,6 +4,8 @@ const Region = require('./region.js')
 const RegionStrategy = require('./region-strategy.js')
 const Cell = require('./cell.js')
 
+let cells
+
 /**
  * A 9x9 Sudoku grid.
  */
@@ -30,9 +32,9 @@ class Grid {
         }
 
         // Instanciate Cells for each number of the grid.
-        this._cells = []
+        cells = []
         for (let index = 0; index < (9 * 9); index++) {
-            this._cells.push(new Cell(_grid[index]))
+            cells.push(new Cell(_grid[index]))
         }
 
         // Create three collections of regions for the rows, columns, and subgrids.
@@ -41,9 +43,9 @@ class Grid {
         this._subgrids = []
 
         for (let index = 0; index < 9; index++) {
-            this._rows.push(new Region(this._cells, index, 'row', RegionStrategy.Row))
-            this._columns.push(new Region(this._cells, index, 'column', RegionStrategy.Column))
-            this._subgrids.push(new Region(this._cells, index, 'subgrid', RegionStrategy.Subgrid))
+            this._rows.push(new Region(this.cells, index, 'row', RegionStrategy.Row))
+            this._columns.push(new Region(this.cells, index, 'column', RegionStrategy.Column))
+            this._subgrids.push(new Region(this.cells, index, 'subgrid', RegionStrategy.Subgrid))
         }
     }
 
@@ -59,7 +61,7 @@ class Grid {
     }
 
     get cells() {
-        return this._cells
+        return cells
     }
 
     /**
@@ -73,7 +75,7 @@ class Grid {
             solved = true
             iterations++
 
-            this._cells.forEach(function (cell) {
+            this.cells.forEach(function (cell) {
                 if (cell.has_value) { return }
 
                 let possible_values = cell.compute_candidates()
@@ -86,7 +88,7 @@ class Grid {
             })
         }
 
-        return { solved, iterations, sudoku: this._cells }
+        return { solved, iterations, sudoku: this.cells }
     }
 
 }

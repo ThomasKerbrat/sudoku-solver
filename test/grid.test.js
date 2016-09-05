@@ -3,7 +3,7 @@ const assert = require('chai').assert
 const Cell = require('../src/cell.js')
 const Grid = require('../src/grid.js')
 
-const sample_grid = require('./data/grid-1.js')
+const sample_grid_1 = require('./data/grid-1.js')
 const sample_grid_2 = require('./data/grid-2.js')
 const sample_grid_3 = require('./data/grid-3.js')
 
@@ -13,7 +13,7 @@ describe('Grid', function () {
         let grid
 
         beforeEach(function () {
-            grid = new Grid(sample_grid.unresolved)
+            grid = new Grid(sample_grid_1.unresolved)
         })
 
         it('should instanciate Cells', function () {
@@ -23,13 +23,37 @@ describe('Grid', function () {
         it('should instanciate Cells from the passed grid representation', function () {
             assert.strictEqual(grid.cells[38].value, 7)
         })
+
+        it('should attach same row cells to a cell', function () {
+            assert.isArray(grid.cells[0].row)
+            assert.lengthOf(grid.cells[0].row, 8)
+            grid.cells[0].row.forEach(function (cell, index) {
+                assert.strictEqual(grid.cells[index + 1], cell)
+            })
+        })
+
+        it('should attach same column cells to a cell', function () {
+            assert.isArray(grid.cells[0].column)
+            assert.lengthOf(grid.cells[0].column, 8)
+            grid.cells[0].column.forEach(function (cell, index) {
+                assert.strictEqual(grid.cells[index + 1], cell)
+            })
+        })
+
+        it('should attach same subgrid cells to a cell', function () {
+            assert.isArray(grid.cells[0].subgrid)
+            assert.lengthOf(grid.cells[0].subgrid, 8)
+            grid.cells[0].subgrid.forEach(function (cell, index) {
+                assert.strictEqual(grid.cells[index + 1], cell)
+            })
+        })
     })
 
     describe('#cells', function () {
         let grid
 
         beforeEach(function () {
-            grid = new Grid(sample_grid.unresolved)
+            grid = new Grid(sample_grid_1.unresolved)
         })
 
         it('should be defined', function () {
@@ -44,8 +68,8 @@ describe('Grid', function () {
 
     describe('#solve()', function () {
         it('should solve Grid 1', function () {
-            let grid = new Grid(sample_grid.unresolved)
-            let solved_grid = Grid.build_array_from_string(sample_grid.resolved)
+            let grid = new Grid(sample_grid_1.unresolved)
+            let solved_grid = Grid.build_array_from_string(sample_grid_1.resolved)
 
             let result = grid.solve()
 
