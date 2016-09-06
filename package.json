@@ -17,7 +17,8 @@
     "sudoku",
     "solver",
     "es6",
-    "complex"
+    "complex",
+    "puzzle"
   ],
   "author": "Thomas Kerbrat <kerbrat@outlook.com>",
   "license": "ISC",
