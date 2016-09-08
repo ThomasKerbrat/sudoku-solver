@@ -53,25 +53,23 @@ class Cell {
     compute_candidates() {
         if (this.has_value) { throw new Error('This cell has already a value') }
 
-        let self = this
-
-        function eliminate(cell) {
-            if (cell === self) { return }
-            if (self.possible_values.length === 0) { return }
-
-            let cell_index = self.possible_values.indexOf(cell.value)
-            if (cell.has_value && cell_index !== -1) {
-                self.possible_values.splice(cell_index, 1)
-            }
-        }
-
-        this.row.forEach(eliminate)
-        this.column.forEach(eliminate)
-        this.subgrid.forEach(eliminate)
+        this.row.forEach(cell => this.eliminate(cell))
+        this.column.forEach(cell => this.eliminate(cell))
+        this.subgrid.forEach(cell => this.eliminate(cell))
 
         assert.strictEqual(this.possible_values.length > 0, true)
 
         return this.possible_values
+    }
+
+    eliminate(cell) {
+        if (cell === this) { return }
+        if (this.possible_values.length === 0) { return }
+
+        let cell_index = this.possible_values.indexOf(cell.value)
+        if (cell.has_value && cell_index !== -1) {
+            this.possible_values.splice(cell_index, 1)
+        }
     }
 
 }
