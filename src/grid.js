@@ -77,26 +77,33 @@ class Grid {
      */
     solve() {
         let solved = false
-        let iterations = 0
+        let iterations = []
 
-        while (!solved && iterations < 100) {
+        while (!solved && iterations.length < 100) {
             solved = true
-            iterations++
+            iterations.push(this.cells.map(cell => new Cell(cell.value)))
 
-            this.cells.forEach(function (cell) {
-                if (cell.has_value) { return }
+            for (let index = 0; index < this.cells.length; index++) {
+                let cell = this.cells[index]
+                if (cell.has_value) { continue }
 
-                let possible_values = cell.compute_candidates()
+                cell.compute_candidates()
 
-                if (possible_values.length === 1) {
-                    cell.value = possible_values[0]
-                } else if (possible_values.length > 1) {
-                    solved = false
+                if (cell.possible_values.length === 1) {
+                    cell.value = cell.possible_values[0]
+                    continue
                 }
-            })
+
+                solved = false
+            }
         }
 
-        return { solved, iterations, sudoku: this.cells }
+        return {
+            solved,
+            iterations: iterations.length,
+            steps: iterations,
+            sudoku: this.cells
+        }
     }
 
 }
