@@ -7,11 +7,11 @@ class Region {
         if (region_index < 0 || region_index > 8) { throw new RangeError('region_index must be a number between 0 and 8 included') }
         if (typeof strategy !== 'function') { throw new TypeError('strategy must be a function') }
 
-        let _getIndex = strategy
+        let getIndex = strategy
         let region_cells = []
 
         for (let index = 0; index < 9; index++) {
-            region_cells.push(grid_cells[_getIndex(region_index, index)])
+            region_cells.push(grid_cells[getIndex(region_index, index)])
         }
 
         return region_cells

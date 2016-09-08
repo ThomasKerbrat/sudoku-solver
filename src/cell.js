@@ -34,10 +34,10 @@ class Cell {
      * @description Sets the cell's value.
      */
     set value(value) {
-        if (typeof value !== 'number') { throw TypeError('value must be a number') }
-        if (value < 1 || value > 9) { throw RangeError('value must be within the 1 to 9 range') }
+        if (typeof value !== 'number') { throw new TypeError('value must be a number') }
+        if (value < 1 || value > 9) { throw new RangeError('value must be within the 1 to 9 range') }
         this._value = value
-     }
+    }
 
     /**
      * @returns {number} Gets whether the cell has a value or not.
@@ -65,9 +65,9 @@ class Cell {
             }
         }
 
-        this.row.cells.forEach(eliminate)
-        this.column.cells.forEach(eliminate)
-        this.subgrid.cells.forEach(eliminate)
+        this.row.forEach(eliminate)
+        this.column.forEach(eliminate)
+        this.subgrid.forEach(eliminate)
 
         assert.strictEqual(this.possible_values.length > 0, true)
 

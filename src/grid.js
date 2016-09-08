@@ -4,8 +4,6 @@ const Region = require('./region.js')
 const RegionStrategy = require('./region-strategy.js')
 const Cell = require('./cell.js')
 
-let cells
-
 /**
  * A 9x9 Sudoku grid.
  */
@@ -32,20 +30,34 @@ class Grid {
         }
 
         // Instanciate Cells for each number of the grid.
-        cells = []
+        this.cells = []
         for (let index = 0; index < (9 * 9); index++) {
-            cells.push(new Cell(_grid[index]))
+            this.cells.push(new Cell(_grid[index]))
         }
 
-        // Create three collections of regions for the rows, columns, and subgrids.
-        this._rows = []
-        this._columns = []
-        this._subgrids = []
-
         for (let index = 0; index < 9; index++) {
-            this._rows.push(new Region(this.cells, index, 'row', RegionStrategy.Row))
-            this._columns.push(new Region(this.cells, index, 'column', RegionStrategy.Column))
-            this._subgrids.push(new Region(this.cells, index, 'subgrid', RegionStrategy.Subgrid))
+            let row = Region.computeSiblings(this.cells, index, RegionStrategy.Row)
+            let column = Region.computeSiblings(this.cells, index, RegionStrategy.Column)
+            let subgrid = Region.computeSiblings(this.cells, index, RegionStrategy.Subgrid)
+
+            row.forEach(cell => {
+                cell.row = row.reduce((siblings, sibling) => {
+                    if (cell !== sibling) { siblings.push(sibling) }
+                    return siblings
+                }, [])
+            })
+            column.forEach(cell => {
+                cell.column = column.reduce((siblings, sibling) => {
+                    if (cell !== sibling) { siblings.push(sibling) }
+                    return siblings
+                }, [])
+            })
+            subgrid.forEach(cell => {
+                cell.subgrid = subgrid.reduce((siblings, sibling) => {
+                    if (cell !== sibling) { siblings.push(sibling) }
+                    return siblings
+                }, [])
+            })
         }
     }
 
@@ -58,10 +70,6 @@ class Grid {
             let value = Number(number)
             return Number.isNaN(value) ? 0 : value
         })
-    }
-
-    get cells() {
-        return cells
     }
 
     /**
